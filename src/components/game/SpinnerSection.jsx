@@ -54,7 +54,7 @@ const targetY =
   ];
 
   return (
-    <div className="flex flex-col items-center gap-2 w-full" style={{ width: wide ? "600px" : "180px" }}>
+    <div className="flex flex-col items-center gap-2 w-full" style={{ width: wide ? "360px" : "180px" }}>
       <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
       {/* Gothic frame */}
       <div className="relative w-full" style={{ padding: "10px" }}>
@@ -268,43 +268,9 @@ const handleReset = () => {
         </div>
       </div>
 
-      {/* Result banner */}
-      <AnimatePresence>
-        {completedSpins > 0 && !isSpinning && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="rounded-xl bg-primary/10 border border-primary/20 px-5 py-4 text-center"
-          >
-            <p className="text-sm text-muted-foreground mb-1">Spin {completedSpins} result:</p>
-            <p className="font-display font-bold text-lg">
-              <span className="text-red-500">{lastResult?.predetermined_player1}</span>
-              <span className="text-muted-foreground mx-2">vs</span>
-              <span className="text-red-500">{lastResult?.predetermined_player2}</span>
-              <span className="text-muted-foreground mx-2">—</span>
-              <span className="text-accent">{lastResult?.predetermined_minigame}</span>
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Previous results */}
-      {completedSpins > 1 && (
-        <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Previous spins</p>
-          {spins.slice(0, completedSpins - 1).map((spin, i) => (
-            <div key={i} className="flex items-center gap-2 text-sm bg-muted/40 rounded-lg px-3 py-2">
-              <span className="w-6 text-muted-foreground tabular-nums">{i + 1}</span>
-              <span className="text-red-500 font-medium">{spin.predetermined_player1}</span>
-              <span className="text-muted-foreground">vs</span>
-              <span className="text-red-500 font-medium">{spin.predetermined_player2}</span>
-              <span className="text-muted-foreground">—</span>
-              <span className="text-accent font-medium">{spin.predetermined_minigame}</span>
-            </div>
-          ))}
-        </div>
-      )}
+
+
 
       {/* Controls */}
       <div className="flex gap-3">

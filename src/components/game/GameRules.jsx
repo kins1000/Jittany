@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import { ScrollText } from "lucide-react";
 
 export default function GameRules({ rules }) {
@@ -17,9 +16,11 @@ export default function GameRules({ rules }) {
         <ScrollText className="w-5 h-5 text-accent" />
         <h3 className="font-display font-bold text-lg">Rules</h3>
       </div>
-      <div className="prose prose-sm max-w-none prose-headings:font-display prose-headings:font-bold prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground">
-        <ReactMarkdown breaks>{rules}</ReactMarkdown>
-      </div>
+
+        <div className="whitespace-pre-line text-muted-foreground">
+            {rules}
+        </div>
+
     </div>
   );
 }
