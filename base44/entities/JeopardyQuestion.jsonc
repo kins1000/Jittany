@@ -1,0 +1,44 @@
+{
+  "name": "JeopardyQuestion",
+  "type": "object",
+  "properties": {
+    "game_id": {
+      "type": "string",
+      "description": "Reference to the jeopardy game"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category name"
+    },
+    "points": {
+      "type": "number",
+      "description": "Point value (100, 200, 300, 400, 500)"
+    },
+    "question": {
+      "type": "string",
+      "description": "The question/clue text (optional fallback)"
+    },
+    "question_video_url": {
+      "type": "string",
+      "description": "URL of the video to play as the question"
+    },
+    "answer": {
+      "type": "string",
+      "description": "The correct answer text (optional fallback)"
+    },
+    "answer_video_url": {
+      "type": "string",
+      "description": "URL of the video to play as the answer reveal"
+    },
+    "is_revealed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this question has been played"
+    }
+  },
+  "required": [
+    "game_id",
+    "category",
+    "points"
+  ]
+}

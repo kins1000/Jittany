@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Wolfmans",
+    "total_score": 0,
+    "color": "#3182CE",
+    "players": ["Don", "Hayes", "GSil", "Rementer", "KMan", "Meek"],
+    "id": "6a1effb99df876370e8521ee"
+  },
+  {
+    "name": "Draculas",
+    "total_score": 0,
+    "color": "#E53E3E",
+    "players": ["Kins", "Jbon", "Scuz", "JJ", "Gill", "Thunda"],
+    "id": "6a1effb99df876370e8521ed"
+  }
+]
