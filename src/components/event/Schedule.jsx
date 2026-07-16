@@ -58,11 +58,7 @@ function GameList({ games }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <h3 className="font-heading font-semibold text-base truncate">{game.name}</h3>
-                {game.is_jeopardy && (
-                  <span className="flex-shrink-0 px-2 py-0.5 bg-accent/15 text-accent rounded-full text-xs font-semibold flex items-center gap-1">
-                    <Zap className="w-3 h-3" /> Jeopardy
-                  </span>
-                )}
+               
               </div>
               {game.description && (
                 <p className="text-sm text-muted-foreground truncate mt-0.5">{game.description}</p>

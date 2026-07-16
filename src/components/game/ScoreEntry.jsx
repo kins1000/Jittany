@@ -1,7 +1,5 @@
-const db = globalThis.__B44_DB__ || { auth:{ isAuthenticated: async()=>false, me: async()=>null }, entities:new Proxy({}, { get:()=>({ filter:async()=>[], get:async()=>null, create:async()=>({}), update:async()=>({}), delete:async()=>({}) }) }), integrations:{ Core:{ UploadFile:async()=>({ file_url:'' }) } } };
-
 import { useState, useEffect } from "react";
-
+import { isAdmin } from "@/lib/admin";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +10,16 @@ export default function ScoreEntry({ gameId, teams, gameScores }) {
   const queryClient = useQueryClient();
   const [scores, setScores] = useState({});
   const [saving, setSaving] = useState(false);
+  const admin = isAdmin();
+
+
+  if (!admin) {
+    return (
+      <div className="text-muted-foreground">
+      </div>
+    );
+  }
+
 
   useEffect(() => {
     const initial = {};

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { isAdmin } from "@/lib/admin";
 import {
   X,
   Eye,
@@ -10,16 +10,6 @@ import {
   Maximize2,
 } from "lucide-react";
 
-const db = globalThis.__B44_DB__ || {
-  entities: new Proxy(
-    {},
-    {
-      get: () => ({
-        update: async () => {},
-      }),
-    }
-  ),
-};
 
 function getDrivePreviewUrl(url) {
   if (!url) return null;
@@ -34,15 +24,21 @@ function getDrivePreviewUrl(url) {
 }
 
 export default function JeopardyBoard({ questions = [] }) {
-  const queryClient = useQueryClient();
+
 
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [revealedIds, setRevealedIds] = useState([]);
+  const [revealedIds, setRevealedIds] = useState(() => {
+  return JSON.parse(
+    localStorage.getItem("jeopardy-board") || "[]"
+  );
+});
 
   const gameContainerRef = useRef(null);
   const questionVideoRef = useRef(null);
   const answerVideoRef = useRef(null);
+  const admin = isAdmin();
+  const storageKey = "jeopardy-board";
 
   const sortedQuestions = [...questions].sort((a, b) => {
     if (a.category !== b.category) {
@@ -63,44 +59,30 @@ export default function JeopardyBoard({ questions = [] }) {
     setShowAnswer(false);
   };
 
-const handleReveal = async () => {
+const handleReveal = () => {
   if (!selectedQuestion) return;
 
-  try {
-    await db.entities.JeopardyQuestion.update(
-      selectedQuestion.id,
-      {
-        is_revealed: true,
-      }
-    );
-  } catch (err) {
-    console.error(err);
-  }
-
-  setRevealedIds((prev) => [
-    ...prev,
+  const updatedIds = [
+    ...revealedIds,
     selectedQuestion.id,
-  ]);
+  ];
+
+  localStorage.setItem(
+    "jeopardy-board",
+    JSON.stringify(updatedIds)
+  );
+
+  setRevealedIds(updatedIds);
 
   setSelectedQuestion(null);
   setShowAnswer(false);
 };
 
-  const handleResetBoard = async () => {
-    for (const q of questions) {
-      if (q.is_revealed) {
-        await db.entities.JeopardyQuestion.update(q.id, {
-          is_revealed: false,
-        });
-      }
-    }
 
-    queryClient.invalidateQueries({
-      queryKey: ["jeopardyQuestions"],
-    });
-
-    setRevealedIds([]);
-  };
+const handleResetBoard = () => {
+  localStorage.removeItem("jeopardy-board");
+  setRevealedIds([]);
+};
 
   if (sortedQuestions.length === 0) {
     return (
@@ -125,14 +107,16 @@ const handleReveal = async () => {
             Full Screen
           </Button>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleResetBoard}
-          >
-            <RotateCcw className="w-4 h-4 mr-2" />
-            Reset Board
-          </Button>
+{admin && (
+  <Button
+    variant="outline"
+    size="sm"
+    onClick={handleResetBoard}
+  >
+    <RotateCcw className="w-4 h-4 mr-2" />
+    Reset Board
+  </Button>
+)}
         </div>
       </div>
 
@@ -151,7 +135,12 @@ const handleReveal = async () => {
     <button
       key={question.id}
       disabled={isRevealed}
-      onClick={() => handleCellClick(question)}
+
+      onClick={() => {
+  	if (!admin) return;
+
+      handleCellClick(question);
+	}}
       className={`aspect-square rounded-lg text-xl font-bold transition
         ${
           isRevealed
@@ -286,12 +275,14 @@ const handleReveal = async () => {
                   )}
                 </Button>
 
-                <Button
-                  className="flex-1"
-                  onClick={handleReveal}
-                >
-                  Mark as Done
-                </Button>
+{admin && (
+  <Button
+    className="flex-1"
+    onClick={handleReveal}
+  >
+    Mark as Done
+  </Button>
+)}
               </div>
             </motion.div>
           </motion.div>

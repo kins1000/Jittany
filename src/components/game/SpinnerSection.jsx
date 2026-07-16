@@ -2,9 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Shuffle, RotateCcw } from "lucide-react";
+import { isAdmin } from "@/lib/admin";
 
 const ITEM_HEIGHT = 56;
 const VISIBLE_ITEMS = 3;
+
 
 // All reels start simultaneously; each keeps spinning until its stop time.
 // Reel 1 stops at 3s, reel 2 at 4s (1s pause), reel 3 at 6s (2s pause).
@@ -126,7 +128,7 @@ const targetY =
 }
 
 export default function SpinnerSection({ game, teams }) {
-
+const admin = isAdmin();
 	
 let config = game.spinner_config || {};
 
@@ -148,7 +150,11 @@ if (typeof config === "string") {
   const players1 = team1?.players || [];
   const players2 = team2?.players || [];
 
-  const [completedSpins, setCompletedSpins] = useState(0);
+const [completedSpins, setCompletedSpins] = useState(() => {
+  return Number(
+    localStorage.getItem(`spinner-${game.id}`) || 0
+  );
+});
   const [spinNonce, setSpinNonce] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [displayedSpinIndex, setDisplayedSpinIndex] = useState(-1);
@@ -175,17 +181,30 @@ if (typeof config === "string") {
 
     timers.current.push(setTimeout(() => {
       setIsSpinning(false);
-      setCompletedSpins(prev => prev + 1);
+setCompletedSpins(prev => {
+  const next = prev + 1;
+
+  localStorage.setItem(
+    `spinner-${game.id}`,
+    next
+  );
+
+  return next;
+});
+
     }, SPIN_DURATION_3 + 300));
   };
 
-  const handleReset = () => {
-    clearTimers();
-    setCompletedSpins(0);
-    setSpinNonce(0);
-    setIsSpinning(false);
-    setDisplayedSpinIndex(-1);
-  };
+const handleReset = () => {
+  clearTimers();
+
+  localStorage.removeItem(`spinner-${game.id}`);
+
+  setCompletedSpins(0);
+  setSpinNonce(0);
+  setIsSpinning(false);
+  setDisplayedSpinIndex(-1);
+};
 
   const missingConfig =
     !config.team1_id || !config.team2_id ||
@@ -289,6 +308,7 @@ if (typeof config === "string") {
 
       {/* Controls */}
       <div className="flex gap-3">
+	{admin && (
         <Button
           onClick={handleSpin}
           disabled={isSpinning || allDone}
@@ -297,12 +317,13 @@ if (typeof config === "string") {
           <Shuffle className="w-4 h-4" />
           {isSpinning ? "Spinning…" : allDone ? "All Spins Complete" : completedSpins === 0 ? "Spin!" : `Spin (${completedSpins + 1}/${spins.length})`}
         </Button>
-        {completedSpins > 0 && !isSpinning && (
-          <Button variant="outline" onClick={handleReset} className="gap-2">
-            <RotateCcw className="w-4 h-4" />
-            Reset
-          </Button>
-        )}
+	)}
+	{admin && completedSpins > 0 && !isSpinning && (
+  <Button variant="outline" onClick={handleReset} className="gap-2">
+    <RotateCcw className="w-4 h-4" />
+    Reset
+  </Button>
+)}
       </div>
     </div>
   );

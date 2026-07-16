@@ -1,7 +1,7 @@
 import EventHeader from "@/components/event/EventHeader";
 import Scoreboard from "@/components/event/Scoreboard";
 import Schedule from "@/components/event/Schedule";
-
+import AdminLogin from "@/components/AdminLogin";
 import teamsData from "@/data/teams.json";
 import gamesData from "@/data/games.json";
 
@@ -26,7 +26,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto px-4 py-6 md:py-10 space-y-8">
         <EventHeader />
-
+        
         <div className="grid md:grid-cols-5 gap-8">
           <div className="md:col-span-3">
             <Schedule games={games} />
@@ -36,7 +36,9 @@ export default function Home() {
             <Scoreboard teams={teams} />
           </div>
         </div>
+<AdminLogin />
       </div>
+
     </div>
   );
 }
