@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Telophobia: Fear of Endings",
+    "maxPoints": 10,
+    "id": "flipcup"
+  },
+  {
+    "name": "Zoophobia: Fear of Animals",
+    "maxPoints": 10,
+    "id": "passthepigs"
+  },
+  {
+    "name": "Pteromerhanophobia: Fear of Flying",
+    "maxPoints": 10,
+    "id": "planes"
+  },
+  {
+    "name": "Enigmaphobia: Fear of Trivia",
+    "maxPoints": 10,
+    "id": "trivia"
+  },
+  {
+    "name": "Boccephobia: Fear of…Bocce",
+    "maxPoints": 10,
+    "id": "bocce"
+  },
+  {
+    "name": "Acrophobia: Fear of Heights",
+    "maxPoints": 10,
+    "id": "frisbee"
+  },
+  {
+    "name": "Triskaidekaphobia: Fear of the Number 13",
+    "maxPoints": 10,
+    "id": "trisk1"
+  },
+  {
+    "name": "Necrophobia: Fear of Death",
+    "maxPoints": 10,
+    "id": "palbearers"
+  },
+  {
+    "name": "Triskaidekaphobia: Fear of the Number 13",
+    "maxPoints": 10,
+    "id": "trisk2"
+  },
+  {
+    "name": "Skotophobia: Fear of Darkness",
+    "maxPoints": 10,
+    "id": "darkness"
+  }
+]

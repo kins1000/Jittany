@@ -3,12 +3,24 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getScores } from "@/lib/scoreStorage";
 
 export default function ScoreboardPage() {
   const { data: teams = [] } = useQuery({
     queryKey: ["teams"],
     queryFn: () => db.entities.Team.list("-total_score"),
   });
+
+  const scores = getScores();
+
+  const getTeamTotal = (teamId) => {
+    return scores
+        .filter((s) => s.team_id === teamId)
+        .reduce(
+            (sum, s) => sum + Number(s.points || 0),
+            0
+        );
+  };
 
   const { data: games = [] } = useQuery({
     queryKey: ["games"],
@@ -82,7 +94,7 @@ export default function ScoreboardPage() {
                   <div
                     className="absolute inset-0 opacity-15 transition-all duration-700 rounded-xl"
                     style={{
-                      width: `${((team.total_score || 0) / maxScore) * 100}%`,
+                      width: `${((getTeamTotal(team.id) || 0) / maxScore) * 100}%`,
                       backgroundColor: team.color || 'hsl(var(--primary))',
                     }}
                   />
@@ -92,7 +104,7 @@ export default function ScoreboardPage() {
                       {team.color && <div className="w-3 h-3 rounded-full" style={{ backgroundColor: team.color }} />}
                       <span className="font-heading font-semibold text-lg">{team.name}</span>
                     </div>
-                    <span className="font-display font-bold text-2xl">{team.total_score || 0}</span>
+                    <span className="font-display font-bold text-2xl">{getTeamTotal(team.id) || 0}</span>
                   </div>
                 </div>
               );

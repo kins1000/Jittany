@@ -4,6 +4,7 @@ import Schedule from "@/components/event/Schedule";
 import AdminLogin from "@/components/AdminLogin";
 import teamsData from "@/data/teams.json";
 import gamesData from "@/data/games.json";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const teams = teamsData;
@@ -33,7 +34,11 @@ export default function Home() {
           </div>
 
           <div className="md:col-span-2">
-            <Scoreboard teams={teams} />
+            <Link to="/pointsdetail">
+              <div className="cursor-pointer hover:opacity-90 transition-opacity">
+                <Scoreboard teams={teams} />
+              </div>
+            </Link>
           </div>
         </div>
 <AdminLogin />

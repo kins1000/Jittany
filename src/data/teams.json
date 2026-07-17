@@ -4,13 +4,13 @@
     "total_score": 0,
     "color": "#3182CE",
     "players": ["Don", "Hayes", "GSil", "Rementer", "KMan", "Meek"],
-    "id": "6a1effb99df876370e8521ee"
+    "id": "Team A"
   },
   {
     "name": "Draculas",
     "total_score": 0,
     "color": "#E53E3E",
     "players": ["Kins", "Jbon", "Scuz", "JJ", "Gill", "Thunda"],
-    "id": "6a1effb99df876370e8521ed"
+    "id": "Team B"
   }
 ]

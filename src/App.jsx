@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from '@/pages/Home';
 import GamePage from '@/pages/GamePage';
 import ScoreboardPage from '@/pages/ScoreboardPage';
+import PointsDetail from "@/pages/PointsDetail";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
           <Route path="/game/:gameId" element={<GamePage />} />
           <Route path="/scoreboard" element={<ScoreboardPage />} />
           <Route path="*" element={<PageNotFound />} />
+            <Route
+                path="/pointsdetail"
+                element={<PointsDetail />}
+            />
         </Routes>
       </Router>
       <Toaster />
