@@ -10,6 +10,7 @@ import gamesData from "@/data/games.json";
 import teamsData from "@/data/teams.json";
 import gameScoresData from "@/data/gamescore.json";
 import jeopardyQuestionsData from "@/data/jeopardyquestion.json";
+import TriviaScoreboard from "@/components/game/TriviaScoreboard";
 
 
 export default function GamePage() {
@@ -114,6 +115,21 @@ export default function GamePage() {
           >
             <GameRules rules={game.rules} />
           </motion.div>
+
+          {game.is_jeopardy && (
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.18 }}
+                  className="bg-card rounded-2xl border p-6 md:p-8"
+              >
+                <TriviaScoreboard
+                    gameId={gameId}
+                    teams={teams}
+                />
+              </motion.div>
+          )}
+
 
           {/* Score Entry */}
           <motion.div

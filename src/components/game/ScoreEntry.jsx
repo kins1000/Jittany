@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Save, Plus, Minus } from "lucide-react";
 import { toast } from "sonner";
 import { saveScore } from "@/lib/scoreStorage";
+import { getScores } from "@/lib/scoreStorage";
 
 export default function ScoreEntry({
                                      gameId,
@@ -16,23 +17,61 @@ export default function ScoreEntry({
 
   const admin = isAdmin();
 
-  if (!admin) {
-    return null;
-  }
+    if (!admin) {
+        return (
+            <div className="space-y-4">
+                <h3 className="font-display font-bold text-lg">
+                    Current Points
+                </h3>
 
-  useEffect(() => {
-    const initial = {};
+                <div className="space-y-3">
+                    {teams.map((team) => (
+                        <div
+                            key={team.id}
+                            className="flex items-center justify-between p-3 bg-card rounded-xl border"
+                        >
+                            <div className="flex items-center gap-3">
+                                {team.color && (
+                                    <div
+                                        className="w-4 h-4 rounded-full"
+                                        style={{
+                                            backgroundColor: team.color,
+                                        }}
+                                    />
+                                )}
 
-    teams.forEach((team) => {
-      const existing = gameScores.find(
-          (gs) => gs.team_id === team.id
-      );
+                                <span className="font-heading font-semibold">
+                {team.name}
+              </span>
+                            </div>
 
-      initial[team.id] = existing?.points || 0;
-    });
+                            <span className="font-display font-bold text-xl">
+              {scores[team.id] || 0}
+            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
 
-    setScores(initial);
-  }, [teams, gameScores]);
+    useEffect(() => {
+        const savedScores = getScores();
+
+        const initial = {};
+
+        teams.forEach((team) => {
+            const existing = savedScores.find(
+                (s) =>
+                    s.game_id === gameId &&
+                    s.team_id === team.id
+            );
+
+            initial[team.id] = existing?.points || 0;
+        });
+
+        setScores(initial);
+    }, [teams, gameId]);
 
 
     const adjustScore = (teamId, delta) => {
