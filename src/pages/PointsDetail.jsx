@@ -25,6 +25,28 @@ export default function PointsDetail() {
             );
     };
 
+    const getRemainingPoints = (game) => {
+        const awarded = scores
+            .filter((s) => s.game_id === game.id)
+            .reduce(
+                (sum, s) => sum + Number(s.points || 0),
+                0
+            );
+
+        return Math.max(
+            0,
+            game.maxPoints - awarded
+        );
+    };
+
+    const getTotalRemainingPoints = () => {
+        return gameConfig.reduce(
+            (sum, game) =>
+                sum + getRemainingPoints(game),
+            0
+        );
+    };
+
     return (
         <div className="min-h-screen bg-background">
             <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -51,7 +73,7 @@ export default function PointsDetail() {
                             </th>
 
                             <th className="border p-3 text-center">
-                                Max Points
+                                Remaining Points
                             </th>
 
                             {teams.map((team) => (
@@ -75,8 +97,8 @@ export default function PointsDetail() {
                                     {game.name}
                                 </td>
 
-                                <td className="border p-3 text-center">
-                                    {game.maxPoints}
+                                <td className="border p-3 text-center font-semibold">
+                                    {getRemainingPoints(game)}
                                 </td>
 
                                 {teams.map((team) => (
@@ -98,7 +120,11 @@ export default function PointsDetail() {
                                 Total
                             </td>
 
-                            <td className="border p-3"></td>
+
+                            <td className="border p-3 text-center">
+                                {getTotalRemainingPoints()}
+                            </td>
+
 
                             {teams.map((team) => (
                                 <td
