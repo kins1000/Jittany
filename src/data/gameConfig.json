@@ -1,52 +1,57 @@
 [
   {
-    "name": "Telophobia: Fear of Endings",
-    "maxPoints": 10,
-    "id": "flipcup"
+    "name": "Skotophobia: Fear of Darkness",
+    "maxPoints": 6,
+    "id": "darkness"
   },
   {
-    "name": "Zoophobia: Fear of Animals",
-    "maxPoints": 10,
-    "id": "passthepigs"
-  },
-  {
-    "name": "Pteromerhanophobia: Fear of Flying",
-    "maxPoints": 10,
-    "id": "planes"
-  },
-  {
-    "name": "Enigmaphobia: Fear of Trivia",
-    "maxPoints": 10,
-    "id": "trivia"
+    "name": "Triskaidekaphobia: Fear of the Number 13",
+    "maxPoints": 7,
+    "id": "trisk1"
   },
   {
     "name": "Boccephobia: Fear of…Bocce",
-    "maxPoints": 10,
+    "maxPoints": 6,
     "id": "bocce"
   },
   {
+    "name": "Zoophobia: Fear of Animals",
+    "maxPoints": 6,
+    "id": "passthepigs"
+  },
+  {
+    "name": "Enigmaphobia: Fear of Trivia",
+    "maxPoints": 6,
+    "id": "trivia"
+  },
+  {
+    "name": "Necrophobia: Fear of Death",
+    "maxPoints": 6,
+    "id": "palbearers"
+  },
+  {
     "name": "Acrophobia: Fear of Heights",
-    "maxPoints": 10,
+    "maxPoints": 7,
     "id": "frisbee"
   },
   {
     "name": "Triskaidekaphobia: Fear of the Number 13",
-    "maxPoints": 10,
-    "id": "trisk1"
-  },
-  {
-    "name": "Necrophobia: Fear of Death",
-    "maxPoints": 10,
-    "id": "palbearers"
-  },
-  {
-    "name": "Triskaidekaphobia: Fear of the Number 13",
-    "maxPoints": 10,
+    "maxPoints": 6,
     "id": "trisk2"
   },
   {
-    "name": "Skotophobia: Fear of Darkness",
-    "maxPoints": 10,
-    "id": "darkness"
+    "name": "Pteromerhanophobia: Fear of Flying",
+    "maxPoints": 7,
+    "id": "planes"
+  },
+  {
+    "name": "Ludophobia: Fear of Games",
+    "maxPoints": 7,
+    "id": "poker"
+  },
+  {
+    "name": "Telophobia: Fear of Endings",
+    "maxPoints": 11,
+    "id": "flipcup"
   }
 ]
