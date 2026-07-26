@@ -5,6 +5,7 @@ import AdminLogin from "@/components/AdminLogin";
 import teamsData from "@/data/teams.json";
 import gamesData from "@/data/games.json";
 import { Link } from "react-router-dom";
+import { isAdmin } from "@/lib/admin";
 
 export default function Home() {
   const teams = teamsData;
@@ -12,7 +13,7 @@ export default function Home() {
 
   const loadingTeams = false;
   const loadingGames = false;
-
+  const admin = isAdmin();
   const isLoading = loadingTeams || loadingGames;
 
   if (isLoading) {
@@ -41,7 +42,18 @@ export default function Home() {
             </Link>
           </div>
         </div>
-<AdminLogin />
+        <div className="flex items-center gap-4">
+          <AdminLogin />
+
+          {admin && (
+              <Link
+                  to="/playernames"
+                  className="text-primary hover:underline"
+              >
+                Edit Player Names
+              </Link>
+          )}
+        </div>
       </div>
 
     </div>

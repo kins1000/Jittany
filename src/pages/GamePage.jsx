@@ -11,6 +11,8 @@ import teamsData from "@/data/teams.json";
 import gameScoresData from "@/data/gamescore.json";
 import jeopardyQuestionsData from "@/data/jeopardyquestion.json";
 import TriviaScoreboard from "@/components/game/TriviaScoreboard";
+import Matchups from "@/components/game/Matchups";
+import PokerTimer from "@/components/game/PokerTimer";
 
 
 export default function GamePage() {
@@ -106,15 +108,38 @@ export default function GamePage() {
         )}
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Rules */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="bg-card rounded-2xl border p-6 md:p-8"
-          >
-            <GameRules rules={game.rules} />
-          </motion.div>
+          <div className="space-y-8">
+            {/* Rules */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="bg-card rounded-2xl border p-6 md:p-8"
+            >
+              <GameRules rules={game.rules} />
+            </motion.div>
+
+            {game.id === "poker" && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.17 }}
+                    className="bg-card rounded-2xl border p-6 md:p-8"
+                >
+                  <PokerTimer />
+                </motion.div>
+            )}
+
+            {/* Matchups */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18 }}
+                className="bg-card rounded-2xl border p-6 md:p-8"
+            >
+              <Matchups gameId={gameId} />
+            </motion.div>
+          </div>
 
           {game.is_jeopardy && (
               <motion.div

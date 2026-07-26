@@ -10,6 +10,7 @@ import Home from '@/pages/Home';
 import GamePage from '@/pages/GamePage';
 import ScoreboardPage from '@/pages/ScoreboardPage';
 import PointsDetail from "@/pages/PointsDetail";
+import PlayerNames from "@/pages/PlayerNames";
 
 function App() {
   return (
@@ -21,10 +22,8 @@ function App() {
           <Route path="/game/:gameId" element={<GamePage />} />
           <Route path="/scoreboard" element={<ScoreboardPage />} />
           <Route path="*" element={<PageNotFound />} />
-            <Route
-                path="/pointsdetail"
-                element={<PointsDetail />}
-            />
+          <Route path="/pointsdetail" element={<PointsDetail />} />
+          <Route path="/playernames" element={<PlayerNames />} />
         </Routes>
       </Router>
       <Toaster />

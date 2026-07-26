@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Shuffle, RotateCcw } from "lucide-react";
 import { isAdmin } from "@/lib/admin";
+import { getPlayers } from "@/lib/playerStorage";
 
 const ITEM_HEIGHT = 56;
 const VISIBLE_ITEMS = 3;
@@ -86,8 +87,18 @@ const targetY =
             style={{ height: ITEM_HEIGHT, background: "linear-gradient(to bottom, hsl(var(--card)), transparent)" }} />
           <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
             style={{ height: ITEM_HEIGHT, background: "linear-gradient(to top, hsl(var(--card)), transparent)" }} />
-          <div className="absolute inset-x-0 z-10 pointer-events-none border-y-2"
-            style={{ top: ITEM_HEIGHT * centerOffset, height: ITEM_HEIGHT, borderColor: RED, background: `${RED}18` }} />
+
+          <div
+              className="absolute inset-x-0 z-30 pointer-events-none border-y-2"
+              style={{
+                top: ITEM_HEIGHT * centerOffset,
+                height: ITEM_HEIGHT,
+                borderColor: RED,
+                background: `${RED}18`,
+                boxShadow: `0 0 8px ${RED}88`,
+              }}
+          />
+
 
           <motion.div
             key={spinNonce}
@@ -144,11 +155,49 @@ if (typeof config === "string") {
 
   const team1 = teams.find(t => t.id === config.team1_id);
   const team2 = teams.find(t => t.id === config.team2_id);
-  const miniGames = config.minigame_options || [];
   const spins = config.spins || [];
+  const miniGames = spins.map(
+      spin => spin.predetermined_minigame
+  );
 
-  const players1 = team1?.players || [];
-  const players2 = team2?.players || [];
+
+  const playerData = getPlayers();
+
+  const players1 =
+      playerData[config.team1_id] || [];
+
+  const players2 =
+      playerData[config.team2_id] || [];
+
+  const getPlayerIndex = (playerCode) => {
+    if (!playerCode) return 0;
+
+    const match = playerCode.match(/[AB]-(\d+)/);
+
+    if (!match) return 0;
+
+    return Number(match[1]) - 1;
+  };
+
+  const resolvePlayerName = (playerCode) => {
+    if (!playerCode) return "";
+
+    if (playerCode.startsWith("A-")) {
+      return (
+          players1[getPlayerIndex(playerCode)] ||
+          playerCode
+      );
+    }
+
+    if (playerCode.startsWith("B-")) {
+      return (
+          players2[getPlayerIndex(playerCode)] ||
+          playerCode
+      );
+    }
+
+    return playerCode;
+  };
 
 const [completedSpins, setCompletedSpins] = useState(() => {
   return Number(
@@ -161,8 +210,13 @@ const [completedSpins, setCompletedSpins] = useState(() => {
   const timers = useRef([]);
 
   const currentResult = spins[displayedSpinIndex];
-  const target1 = players1.indexOf(currentResult?.predetermined_player1);
-  const target2 = players2.indexOf(currentResult?.predetermined_player2);
+  const target1 = getPlayerIndex(
+      currentResult?.predetermined_player1
+  );
+
+  const target2 = getPlayerIndex(
+      currentResult?.predetermined_player2
+  );
   const target3 = miniGames.indexOf(currentResult?.predetermined_minigame);
   const safeTarget1 = target1 >= 0 ? target1 : 0;
   const safeTarget2 = target2 >= 0 ? target2 : 0;
@@ -209,7 +263,7 @@ const handleReset = () => {
   const missingConfig =
     !config.team1_id || !config.team2_id ||
     players1.length === 0 || players2.length === 0 ||
-    miniGames.length === 0 || spins.length === 0;
+      spins.length === 0;
 
   if (missingConfig) {
     return (
@@ -221,7 +275,6 @@ const handleReset = () => {
     );
   }
 
-  const lastResult = completedSpins > 0 ? spins[completedSpins - 1] : null;
 
   return (
     <div className="space-y-6">
