@@ -40,13 +40,15 @@ export default function JeopardyBoard({ questions = [] }) {
   const admin = isAdmin();
   const storageKey = "jeopardy-board";
 
-  const sortedQuestions = [...questions].sort((a, b) => {
-    if (a.category !== b.category) {
-      return a.category.localeCompare(b.category);
-    }
+  const sortedQuestions = [...questions]
+      .sort((a, b) => {
+        if (a.category !== b.category) {
+          return a.category.localeCompare(b.category);
+        }
 
-    return (a.points || 0) - (b.points || 0);
-  });
+        return (a.points || 0) - (b.points || 0);
+      })
+      .slice(0, 20);
 
   const handleFullscreen = () => {
     gameContainerRef.current?.requestFullscreen?.();
@@ -123,7 +125,7 @@ const handleResetBoard = () => {
       <div
         className="grid gap-2"
         style={{
-          gridTemplateColumns: "repeat(5,1fr)",
+          gridTemplateColumns: "repeat(4,1fr)",
         }}
       >
 {sortedQuestions.map((question, index) => {
