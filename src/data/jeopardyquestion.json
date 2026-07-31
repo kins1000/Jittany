@@ -65,10 +65,10 @@
   },
   {
     "question": "",
-    "question_video_url": "https://drive.google.com/file/d/1OpM5bDhTOQ0g3LH_0FQEVHSurMkLoJa2/preview",
+    "question_video_url": "https://drive.google.com/file/d/1pBRfOUz-fGbq1ZHSHd5IKiMu0LL7oUSv/preview",
     "answer": "",
     "is_revealed": false,
-    "answer_video_url": "",
+    "answer_video_url": "https://drive.google.com/file/d/1OpM5bDhTOQ0g3LH_0FQEVHSurMkLoJa2/preview",
     "category": "5",
     "game_id": "trivia",
     "points": "1",
@@ -96,7 +96,7 @@
     "is_sample": false
   },
   {
-    "question": "The speed of light is approximately this many miles per second",
+    "question": "",
     "question_video_url": "https://drive.google.com/file/d/1YcqUgeVifQXtg1iq2t-F77q90GNq_w78/preview",
     "answer": "",
     "is_revealed": false,
@@ -112,11 +112,11 @@
     "is_sample": false
   },
   {
-    "question": "https://drive.google.com/file/d/1s5J2Jg_fsK0TeX81cVvFrwhB5OPfN2Kq/preview",
-    "question_video_url": "",
-    "answer": "https://drive.google.com/file/d/1wAJeHV-U1CALyEwUjkNzhYhfhQZ8PH2u/preview",
+    "question": "",
+    "question_video_url": "https://drive.google.com/file/d/1s5J2Jg_fsK0TeX81cVvFrwhB5OPfN2Kq/preview",
+    "answer": "",
     "is_revealed": false,
-    "answer_video_url": "",
+    "answer_video_url": "https://drive.google.com/file/d/1wAJeHV-U1CALyEwUjkNzhYhfhQZ8PH2u/preview",
     "category": "8",
     "game_id": "trivia",
     "points": "1",
@@ -305,10 +305,10 @@
   },
   {
     "question": "",
-    "question_video_url": "",
+    "question_video_url": "https://drive.google.com/file/d/1-4950BMgjnJZDslcd2iKQtmT-iP5KAAA/preview",
     "answer": "",
     "is_revealed": false,
-    "answer_video_url": "",
+    "answer_video_url": "https://drive.google.com/file/d/1Lqeq1vgsDal3z65GYWdvtIBPIO3Gzhh4/preview",
     "category": "20",
     "game_id": "trivia",
     "points": "100",
